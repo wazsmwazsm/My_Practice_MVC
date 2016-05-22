@@ -3,6 +3,7 @@
 MVC框架的练习
 
 一个简单的PHP MVC 框架
+
 可以解决一下小型项目
 
 A simple PHP MVC framework
@@ -11,9 +12,9 @@ Just a Practice
 
 
 
-<h2>Directory Structure</h2> ： 
+<h2>Directory Structure</h2>  
 
---application : place your design content
+--<b>application</b> : place your design content
   
     --config : global config file
     
@@ -31,7 +32,7 @@ Just a Practice
       
       --home : place your performs views
       
---framework : framework content 
+--<b>framework</b> : framework content 
   
     --core : core classes and basic classes 
     
@@ -41,13 +42,13 @@ Just a Practice
     
     --libraries : tool classes, exp : session, captcha ...
     
---public : place your performs html, js, css, images, uploads files
+--<b>public</b> : place your performs html, js, css, images, uploads files
   
   
   
-<h2>目录结构</h2> ： 
+<h2>目录结构</h2> 
 
---application : 放置用户设计内容
+--<b>application</b> : 放置用户设计内容
   
     --config : 全局配置文件
     
@@ -65,7 +66,7 @@ Just a Practice
       
       --home : 放置你的前台视图
       
---framework : 框架内容 
+--<b>framework</b> : 框架内容 
   
     --core : 核心类和基础类 
     
@@ -75,7 +76,7 @@ Just a Practice
     
     --libraries : 工具类, 例如 : session、 captcha ...
     
---public : 放置你的前台 html、 js、 css、 images和uploads 等文件
+--<b>public</b> : 放置你的前台 html、 js、 css、 images和uploads 等文件
   
   
   作为个人学习成果的一个练习，不足之处还请多多指教 (｀･ω･´) 
