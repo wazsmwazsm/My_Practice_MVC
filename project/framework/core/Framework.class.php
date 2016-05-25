@@ -31,7 +31,7 @@ class Framework {
 	/*
 	 * function : 初始化配置文件
 	 */
-	private function _initConfig(){
+	private static function _initConfig(){
 		$GLOBALS['config'] = require CONFIG_PATH . 'config.php';
 	}
 
