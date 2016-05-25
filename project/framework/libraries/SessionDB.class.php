@@ -61,7 +61,7 @@ class SessionDB{
 	 */
 	public function userSessionRead($sess_id) {
 		//查询
-		$sql = "SELECT session_content FROM `{$_prefix}session` WHERE session_id='$sess_id'";
+		$sql = "SELECT session_content FROM `{$this->_prefix}session` WHERE session_id='$sess_id'";
 		return (string) $this->_dao->getOne($sql);
 	}
 	/**
@@ -75,7 +75,7 @@ class SessionDB{
 	public function userSessionWrite($sess_id, $sess_content) {
 
 		// 完成写
-		$sql = "REPLACE INTO `{$_prefix}session` VALUES ('$sess_id', '$sess_content', unix_timestamp())";
+		$sql = "REPLACE INTO `{$this->_prefix}session` VALUES ('$sess_id', '$sess_content', unix_timestamp())";
 		// $sql = "INSERT INTO `session` VALUES ('$sess_id', '$sess_content') ON DUPLICATE KEY UPDATE session_content='$sess_content', last_time=unix_timestamp()"
 		
 		return $this->_dao->query($sql);
@@ -90,7 +90,7 @@ class SessionDB{
 	 */
 	public function userSessionDelete($sess_id) {
 		//删除
-		$sql = "DELETE FROM `{$_prefix}session` WHERE session_id='$sess_id'";
+		$sql = "DELETE FROM `{$this->_prefix}session` WHERE session_id='$sess_id'";
 		return $this->_dao->query($sql);
 	}
 	/**
@@ -102,7 +102,7 @@ class SessionDB{
 	 */
 	public function userSessionGC($max_lifetime) {
 		//删除
-		$sql = "DELETE FROM `{$_prefix}session` WHERE last_time<unix_timestamp()-$max_lifetime";
+		$sql = "DELETE FROM `{$this->_prefix}session` WHERE last_time<unix_timestamp()-$max_lifetime";
 		return $this->_dao->query($sql);
 	}
 
@@ -110,7 +110,7 @@ class SessionDB{
 
 // 需要创建的表
 /***************************************************
-* create table `{$_prefix}session` (               *
+* create table `{$this->_prefix}session` (               *
 * 	session_id varchar(40) not null default '',    *    
 * 	session_content text,                          * 
 *	last_time int not null default 0,              *    
