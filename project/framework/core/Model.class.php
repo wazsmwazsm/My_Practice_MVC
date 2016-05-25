@@ -33,7 +33,7 @@ class Model {
 
 		//选择数据库驱动
 		switch ($GLOBALS['config']['app']['dao']) {
-			case 'mysql':
+			case  'mysql':
 				$dao_class = 'MySQLDB';
 				break;
 			case 'pdo':
@@ -50,7 +50,7 @@ class Model {
 
 /********************************************************************
  *                                                                  *
- *     西面是关于表操作的一些基础功能，有待完善                     *    
+ *     下面是关于表操作的一些基础功能，有待完善                     *    
  *                                                                  *
  *                                                                  *
  *                                                                  *
