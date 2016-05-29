@@ -32,7 +32,7 @@ class Controller{
 	 * @param : $message string 跳转提示信息
 	 * @param : $wait int 等待时间
 	 */
-	protected function jump($url, $message, $wait = 3){
+	protected function _jump($url, $message, $wait = 3){
 		if(is_null($message)){
 			//如果立即跳转
 			header('Location: '. $url);

@@ -56,7 +56,7 @@ class Model {
 	 * @param : $data array 要转义的数据
 	 * @return : $data array 转义后的数据
 	 */
-	protected function _escapeStringAll($data){
+	public function escapeStringAll($data){
 		foreach ($data as $key => $value) {
 			$data[$key] = $this->_dao->escapeString($value) ;
 		}
@@ -106,9 +106,9 @@ class Model {
 	 * @param : $list array 要插入的字段名和值的关联数组
 	 * @return : mixed 成功返回插入ID， 失败返回false
 	 */
-	protected function _insertRecord($list){
+	public function insertRecord($list){
 		//集中转义数据
-		$list = $this->_escapeStringAll($list);
+		$list = $this->escapeStringAll($list);
 		//字段列表字符串
 		$fieldList = '';
 		//值列表字符串
@@ -142,9 +142,9 @@ class Model {
 	 * @param : $list array 要更新的字段名和值的关联数组
 	 * @return : mixed 成功返回受影响行数， 失败返回false
 	 */
-	protected function _updateRecord($list){
+	public function updateRecord($list){
 		//集中转义数据
-		$list = $this->_escapeStringAll($list);
+		$list = $this->escapeStringAll($list);
 		//更新字段列表
 		$upList = '';
 		//更新条件
@@ -184,7 +184,7 @@ class Model {
 	 * @param : $id mixed 传入要删除条目的主键ID，可以是一个数组
 	 * @return : mixed 成功：返回成功删除的记录数 失败： false
 	 */
-	protected function _deleteRecord($id){
+	public function deleteRecord($id){
 		//删除的条件
 		$condition = 0; 
 		if(is_array($id)){
@@ -211,7 +211,7 @@ class Model {
 	 * @param : $id mixed 需要查询条目的主键ID或需要查询条目的主键ID列表
 	 * @return : array 返回记录
 	 */
-	protected function _getRecord($id){
+	public function getRecord($id){
 	
 		if(is_array($id)){
 			//是一组ID		
@@ -232,7 +232,7 @@ class Model {
 	 * @param : string $condition 查询条件 exp:'id=1'
 	 * @return : number 返回查询的记录数
 	 */
-	protected function _getTotalNum($condition = false){
+	public function getTotalNum($condition = false){
 		if($condition === false){
 			$sql = "SELECT count(*) FROM $this->_table ;";
 		} else {
@@ -241,8 +241,30 @@ class Model {
 		return $this->_dao->getOne($sql);
 	}
 
+	/*
+	 * function : 获取表中所有记录
+	 * @return : array 所有的条目
+	 */
+	public function getAllRecord(){		
+		$sql = "SELECT * FROM $this->_table";		
+		return $this->_dao->getAll($sql);
+	}
 
-	
+
+	/*
+	 * function : 获取LIMIT后的条目信息
+	 * @param : $offset int 偏移量
+	 * @param : $limit int 每次取记录条数
+	 * @return : $condition string where查询条件
+	 */
+	public function getLimit($offset, $limit, $condition=false){
+		if($condition === false){
+			$sql = "SELECT * FROM {$this->_table} LIMIT $offset, $limit";
+		} else {
+			$sql = "SELECT * FROM {$this->_table} where $condition LIMIT $offset, $limit";
+		}
+		return $this->_dao->getAll($sql);
+	}
 
 	
 
