@@ -32,31 +32,45 @@ class Controller{
 	 * @param : $message string 跳转提示信息
 	 * @param : $wait int 等待时间
 	 */
-	public function jump($url, $message, $wait = 3){
-		if(is_null($message)){
+	protected function _jump($url, $message, $wait = 3){
+		if($wait == 0){
 			//如果立即跳转
 			header('Location: '. $url);
 		}else{
 			//等待跳转，显示跳转消息
-			header('Refresh: $wait; URL=$url');
-			echo $info;
+			include CUR_VIEW_PATH . 'message.html';
 		}
 		//防止后续执行
 		die;
-	} 
+	}
+
+	//跳转2
+	// public function jump2($url, $message, $wait = 3){
+	// 	if(is_null($message)){
+	// 		//如果立即跳转
+	// 		header('Location: '. $url);
+	// 	}else{
+	// 		//等待跳转，显示跳转消息
+	// 		header('Refresh: $wait; URL=$url');
+	// 		echo $info;
+	// 	}
+	// 	//防止后续执行
+	// 	die;
+	// } 
+
 
 
 	/*
 	 * function : 载入辅助函数，由用户决定手动加载时机和位置
 	 */
-	public function helper($helper){
+	protected function _helper($helper){
 		require HELPER_PATH . '{$helper}_helper.php';
 	}
 
 	/*
 	 * function : 载入库类，由用户决定手动加载时机和位置
 	 */
-	public function libaray($lib){
+	protected function _libaray($lib){
 		require LIB_PATH . '{$lib}.class.php';
 	}
 
