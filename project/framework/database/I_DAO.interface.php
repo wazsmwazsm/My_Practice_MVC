@@ -16,6 +16,7 @@ interface I_DAO{
 	public function getAll($sql);
 	public function getRow($sql);
 	public function getOne($sql);
+	public function getInsertId();
 	public function escapeString($sql);
 }
 

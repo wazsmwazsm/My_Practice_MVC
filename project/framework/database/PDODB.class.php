@@ -184,6 +184,14 @@ class PDODB implements I_DAO {
 	}
 
 	/*
+	 * function: 获取上一部insert操作产生的ID
+	 * @return : string ID
+	*/
+	public function getInsertId(){
+		return $this->_pdo->lastInsertId();
+	}
+
+	/*
 	 * function: 转义用户数据
 	 * @param :  string $data 待转义的数据
 	 * @return : string  转义后的数据
