@@ -175,7 +175,17 @@ class MySQLDB implements I_DAO{
 	 * @return : string ID
 	*/
 	public function getInsertId(){
-		return mysql_insert_id();
+		return mysql_insert_id($this->_resource);
+	}
+
+	/*
+	 * function: 执行SQL语句,返回执行SQL语句后受影响的行数
+	 * @param $sql string SQL语句
+	 * @return : string row
+	*/
+	public function getEffCount($sql){
+		$this->query($sql);
+		return mysql_affected_rows($this->_resource);
 	}
 
 	/*

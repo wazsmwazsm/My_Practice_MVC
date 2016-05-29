@@ -17,6 +17,7 @@ interface I_DAO{
 	public function getRow($sql);
 	public function getOne($sql);
 	public function getInsertId();
+	public function getEffCount($sql);
 	public function escapeString($sql);
 }
 

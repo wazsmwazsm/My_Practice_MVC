@@ -192,6 +192,15 @@ class PDODB implements I_DAO {
 	}
 
 	/*
+	 * function: 执行SQL语句,返回执行SQL语句后受影响的行数
+	 * @param $sql string SQL语句
+	 * @return : string row
+	*/
+	public function getEffCount($sql){
+		return $this->_pdo->exec($sql);
+	}
+
+	/*
 	 * function: 转义用户数据
 	 * @param :  string $data 待转义的数据
 	 * @return : string  转义后的数据
