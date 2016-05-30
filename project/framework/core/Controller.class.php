@@ -51,14 +51,14 @@ class Controller{
 	 * function : 载入辅助函数，由用户决定手动加载时机和位置
 	 */
 	protected function _helper($helper){
-		require HELPER_PATH . '{$helper}_helper.php';
+		require HELPER_PATH . "{$helper}_helper.php";
 	}
 
 	/*
 	 * function : 载入库类，由用户决定手动加载时机和位置
 	 */
 	protected function _libaray($lib){
-		require LIB_PATH . '{$lib}.class.php';
+		require LIB_PATH . "{$lib}.class.php";
 	}
 
 

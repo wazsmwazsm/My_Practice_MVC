@@ -248,6 +248,7 @@ class Model {
 	public function getAllRecord(){		
 		$sql = "SELECT * FROM $this->_table";		
 		return $this->_dao->getAll($sql);
+		
 	}
 
 

@@ -46,6 +46,7 @@ class Framework {
 		define('APP_PATH', ROOT . 'application' . DS);
 		define('FRAMEWORK_PATH', ROOT . 'framework' . DS);
 		define('PUBLIC_PATH', ROOT . 'public' . DS);
+		define('UPLOAD_PATH', PUBLIC_PATH . 'uploads' . DS);
 		define('MODEL_PATH', APP_PATH . 'models' . DS);
 		define('CONTROLLER_PATH', APP_PATH . 'controllers' . DS);
 		define('VIEW_PATH', APP_PATH . 'views' . DS);
