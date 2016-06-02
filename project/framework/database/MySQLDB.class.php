@@ -115,6 +115,10 @@ class MySQLDB implements I_DAO{
 	 * @return : success: $result 结果集 failed: false
 	*/
 	public function query($sql){
+		//如果开始SQL日志则记录日志，用于调试
+		if($GLOBALS['config']['db']['sql_log'] === true){
+			$this->sqlLog($sql);
+		}
 		if(!$result = mysql_query($sql, $this->_resource)){
 			echo "<br />sql execute failed";
 			echo "<br />failed SQL:" . $sql;
@@ -197,7 +201,14 @@ class MySQLDB implements I_DAO{
 		return "'" . mysql_real_escape_string($data, $this->_resource) . "'";
 	}
 
-
+	/*
+	 * function: 将SQL语句写入日志文件
+	 * @param :  string $sql 待写入的sql语句
+	*/
+	public function sqlLog($sql){
+		$temp = "[" . date("Y-m-d H:i:s") . "]" .$sql . PHP_EOL;
+		file_put_contents( APP_PATH . 'log/log.txt', $temp, FILE_APPEND);
+	}
 
 }
 

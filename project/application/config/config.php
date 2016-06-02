@@ -4,15 +4,16 @@ return array(
 	'db' => array(
 		'host' => 'localhost',
 		'port' => '3306',
-		'username' => 'shop34',
+		'username' => 'shop',
 		'password' => 'wzdanzsm',
 		'charset' => 'utf8',	
-		'dbname' => 'shop34',
+		'dbname' => 'shop',
+		'sql_log' => false,
 		),
 	'app' => array(
 		'default_platform' => 'admin',
 		'dao' => 'pdo',
-		'table_prefix' => 'pre_',
+		'table_prefix' => 'cz_',
 		),
 	'admin'=>array(
 		'default_controller' => 'Index',

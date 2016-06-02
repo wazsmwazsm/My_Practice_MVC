@@ -68,7 +68,7 @@ class Model {
 	}
 
 	/*
-	 * function : 转义所有的html实体
+	 * function : 转义所有的html字符为html实体
 	 * @param : $data mixed 要转义的数据
 	 * @return : $data mixed 转义后的数据
 	 */
