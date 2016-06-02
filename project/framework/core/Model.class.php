@@ -52,17 +52,36 @@ class Model {
 
 
 	/*
-	 * function : 转义数组中所有的数据
-	 * @param : $data array 要转义的数据
-	 * @return : $data array 转义后的数据
+	 * function : 转义参数中所有的数据
+	 * @param : $data mixed 要转义的数据
+	 * @return : $data mixed 转义后的数据
 	 */
 	public function escapeStringAll($data){
-		foreach ($data as $key => $value) {
-			$data[$key] = $this->_dao->escapeString($value) ;
+		//输入为空？
+		if(empty($data)){
+			return $data;
 		}
-		return $data;
+		//处理数组(单维和多维)和单个数据
+		return is_array($data) ?
+			   array_map(array($this,"escapeStringAll"), $data) : 
+			   $this->_dao->escapeString($data);		
 	}
 
+	/*
+	 * function : 转义所有的html实体
+	 * @param : $data mixed 要转义的数据
+	 * @return : $data mixed 转义后的数据
+	 */
+	public function escapeHtmlAll($data){
+		//输入为空？
+		if(empty($data)){
+			return $data;
+		}
+		//处理数组(单维和多维)和单个数据
+		return is_array($data) ?
+			   array_map(array($this,"escapeHtmlAll"), $data) : 
+			   htmlspecialchars($data);		
+	}
 
 /********************************************************************
  *                                                                  *
@@ -109,6 +128,7 @@ class Model {
 	public function insertRecord($list){
 		//集中转义数据
 		$list = $this->escapeStringAll($list);
+		$list = $this->escapeHtmlAll($list);
 		//字段列表字符串
 		$fieldList = '';
 		//值列表字符串
@@ -145,6 +165,7 @@ class Model {
 	public function updateRecord($list){
 		//集中转义数据
 		$list = $this->escapeStringAll($list);
+		$list = $this->escapeHtmlAll($list);
 		//更新字段列表
 		$upList = '';
 		//更新条件
