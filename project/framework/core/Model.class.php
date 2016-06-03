@@ -126,6 +126,10 @@ class Model {
 	 * @return : mixed 成功返回插入ID， 失败返回false
 	 */
 	public function insertRecord($list){
+		//输入为空？
+		if(empty($list)){
+			return false;
+		}
 		//集中转义数据
 		$list = $this->escapeStringAll($list);
 		$list = $this->escapeHtmlAll($list);
@@ -163,6 +167,10 @@ class Model {
 	 * @return : mixed 成功返回受影响行数， 失败返回false
 	 */
 	public function updateRecord($list){
+		//输入为空？
+		if(empty($list)){
+			return false;
+		}
 		//集中转义数据
 		$list = $this->escapeStringAll($list);
 		$list = $this->escapeHtmlAll($list);
@@ -261,6 +269,39 @@ class Model {
 		}
 		return $this->_dao->getOne($sql);
 	}
+
+	/*
+	 * function : 获取满足条件的一条记录
+	 * @param : string $condition 查询条件 exp:'id=1'
+	 * @return : array 返回查询的记录
+	 */
+	public function getCRecord($condition = false){
+		//条件为空
+		if($condition === false){
+			return false;
+		} 
+
+		$sql = "SELECT * FROM $this->_table WHERE $condition;";
+		
+		return $this->_dao->getRow($sql);
+	}
+
+	/*
+	 * function : 获取满足条件的所有记录
+	 * @param : string $condition 查询条件 exp:'id=1'
+	 * @return : array 返回查询的记录 二维数组
+	 */
+	public function getAllCRecord($condition = false){
+		//条件为空
+		if($condition === false){
+			return false;
+		} 
+
+		$sql = "SELECT * FROM $this->_table WHERE $condition;";
+		
+		return $this->_dao->getAll($sql);
+	}
+
 
 	/*
 	 * function : 获取表中所有记录
