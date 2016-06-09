@@ -57,8 +57,11 @@ class Captcha {
 		switch(PHP_OS)
 		{
 			case 'Windows':
-				define('FONT','C://Windows/fonts/Arial.ttf');
+				define('FONT','C:/Windows/Fonts/ARIALUNI.TTF');
 				break;
+			case 'WINNT':
+				define('FONT','C:/Windows/Fonts/ARIALUNI.TTF');
+				break;	
 			case 'Linux':
 				define('FONT','/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-BI.ttf');
 				break;	
