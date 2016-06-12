@@ -118,10 +118,10 @@ class Image{
 		imagecopy($srcImg, $waterImg, $dst_x, $dst_y, 0, 0, $warter_w, $warter_h);
 
 		//生成带水印的图片
-		$dstFile = $path . $this->_waterPrefix . basename($imageFile);
+		$dstFile = $this->_waterPrefix . basename($imageFile);
 		$generateImage = $this->_generateImg[$src_info['mime']];
 
-		if($generateImage($srcImg, $dstFile)){
+		if($generateImage($srcImg, $path . $dstFile)){
 			//图片生成成功，返回文件名
 			return $dstFile;
 		} else {
@@ -169,12 +169,35 @@ class Image{
 
 
 		//按照比例生成缩略图:重采样拷贝部分图像并调整大小
+		/*
+			bool imagecopyresampled ( resource $dst_image , resource $src_image , int $dst_x , int $dst_y , int $src_x , int $src_y , int $dst_w , int $dst_h , int $src_w , int $src_h )
+
+			$dst_image：新建的图片
+
+			$src_image：需要载入的图片
+
+			$dst_x：设定需要载入的图片在新图中的x坐标
+
+			$dst_y：设定需要载入的图片在新图中的y坐标
+
+			$src_x：设定载入图片要载入的区域x坐标
+
+			$src_y：设定载入图片要载入的区域y坐标
+
+			$dst_w：设定载入的原图的宽度（在此设置缩放）
+
+			$dst_h：设定载入的原图的高度（在此设置缩放）
+
+			$src_w：原图要载入的宽度
+
+			$src_h：原图要载入的高度
+		*/
 		imagecopyresampled($dstImg, $srcImg, $dst_x, $dst_y, 0, 0, $dst_w, $dst_h, $src_w, $src_h);
 		//也可以用basename函数
-		$dstFile =  $path . $this->_thumbPrefix . basename($imageFile);
+		$dstFile = $this->_thumbPrefix . pathinfo($imageFile, PATHINFO_BASENAME);
 
 		$generateImage = $this->_generateImg[$src_info['mime']];
-		if($generateImage($dstImg, $dstFile)){
+		if($generateImage($dstImg, $path . $dstFile)){
 			// 成功返回缩略图名称,注意返回的名称,不同地方上传方案会有不同的路径
 			return $dstFile;
 		} else {
@@ -186,4 +209,8 @@ class Image{
 
 }
 
+//测试代码
+// $img = new Image();
 
+//$img->watermark('./img/src.jpg','./img/water.jpg',1,'./img/');
+// $img->thumbnail('./img/src.jpg',60,60,'./img/');

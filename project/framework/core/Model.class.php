@@ -28,6 +28,26 @@ class Model {
 	}
 
 	/*
+	 * function : 属性重载，外部设置一些访问受限属性
+	 * 这里暂时用来修改表名，同一类模型进行多表操作时切换表的作用
+	 * 谨慎使用
+	 */
+	public function __set($property, $value){
+		$allow_set_list = array('_table');
+		//没有加_自动添加
+		if(substr($property, 0, 1) !== '_'){
+			$property = '_' . $property;
+		}
+
+		if(!in_array($property, $allow_set_list)){
+			//访问不允许的属性
+			return false;
+		}
+
+		$this->$property = $value;
+	}
+
+	/*
 	 * function : 初始化DAO
 	 */
 	protected function _initDAO(){
@@ -137,9 +157,14 @@ class Model {
 		$fieldList = '';
 		//值列表字符串
 		$valueList = '';
+		
 		//构造插入列表
 		foreach ($list as $key => $value) {
 			if(in_array($key, $this->_fields)){
+				//防止有键值而无值的情况下插入出错
+				if($value == ''){
+					$value = "' '";
+				}
 				//字段名称需要'`'防止关键字重名
 				$fieldList .= "`" . $key . "`" . ",";
 				$valueList .=  $value . ",";
@@ -162,6 +187,21 @@ class Model {
 	}
 
 	/*
+	 * function : 插入多行记录
+	 * @param : $list array 二维数组
+	 */
+	public function insertRecordAll($data){
+		foreach ($data as $value) {
+			if(!$this->insertRecord($value)){
+				//有一条记录插入失败,则全部停止
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+	/*
 	 * function : 更新记录
 	 * @param : $list array 要更新的字段名和值的关联数组
 	 * @return : mixed 成功返回受影响行数， 失败返回false
@@ -182,6 +222,10 @@ class Model {
 		//构建更新字符串
 		foreach ($list as $key => $value) {
 			if(in_array($key, $this->_fields)){
+				//防止有键值而无值的情况下插入出错
+				if($value == ''){
+					$value = "' '";
+				}
 				if($key == $this->_fields['pk']){
 					//是主键， 不手动更新， 同时构造条件
 					//取得当前主键的值
@@ -207,6 +251,21 @@ class Model {
 			return false;
 		}
 	}
+
+	/*
+	 * function : 更新多行记录
+	 * @param : $list array 二维数组
+	 */
+	public function updateRecordAll($data){
+		foreach ($data as $value) {
+			if(!$this->updateRecord($value)){
+				//有一条记录更新失败,则全部停止
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 	/*
 	 * function : 删除记录，可删除一个或多个条目
