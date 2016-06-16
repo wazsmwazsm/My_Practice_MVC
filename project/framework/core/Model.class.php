@@ -242,7 +242,7 @@ class Model {
 		$upList = rtrim($upList, ',');
 		//构建更新语句
 		$sql = "UPDATE $this->_table SET {$upList} WHERE {$condition}";
-
+		
 		//执行更新并判断受影响行数
 		if($row = $this->_dao->getEffCount($sql)){
 			//有数据更新
@@ -257,13 +257,16 @@ class Model {
 	 * @param : $list array 二维数组
 	 */
 	public function updateRecordAll($data){
+		//记录受影响行数的数组
+		$effectCount = 0;
 		foreach ($data as $value) {
-			if(!$this->updateRecord($value)){
-				//有一条记录更新失败,则全部停止
-				return false;
-			}
+			if($countList[] = $this->updateRecord($value)){
+				$effectCount++;
+			}			
 		}
-		return true;
+		
+		//返回受影响的行数
+		return $effectCount;
 	}
 
 
