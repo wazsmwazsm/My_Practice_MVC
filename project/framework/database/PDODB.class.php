@@ -68,7 +68,7 @@ class PDODB implements I_DAO {
 	*/
 	public function __sleep(){
 		echo "serializing...";
-		mysql_close($this->_pdo);
+		$this->_pdo = null;
 
 		return array('host','port','username','password','charset','dbname');
 	}
